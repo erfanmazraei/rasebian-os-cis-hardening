@@ -1,15 +1,25 @@
 #!/bin/bash
 
+set -x 
+
 #CiS debian Linux 10 benchmark
 #v1.0.0 - 02-13-202
 
+export HOME_DIR="/home/naad"
+
 main() {
+    pre_exec
     1_initial_setup
     2_services
     3_network_configuration
     4_logging_and_auditing
     5_access_and_authentication_and_authorization
     6_System_maintenance
+}
+
+pre_exec() {
+    apt update
+    mkdir -p $HOME_DIR
 }
 
 1_initial_setup(){
@@ -62,119 +72,119 @@ main() {
 }
 
 1_1_1_1_ensure_mounting_of_freevxfs_filesystems_is_disabled_scored() {
-
+    pass
 }
 
 1_1_1_2_ensure_mounting_of_jffs2_filesystems_is_disabled_scored() {
-
+    pass
 }
 
 1_1_1_3_ensure_mounting_of_hfs_filesystems_is_disabled_scored() {
-
+    pass
 }
 
 1_1_1_4_ensure_mounting_of_hfsplus_filesystems_is_disabled_scored() {
-
+    pass
 }
 
 1_1_1_5_ensure_mounting_of_squashfs_filesystems_is_disabled_scored() {
-
+    pass
 }
 
 1_1_1_6_ensure_mounting_of_udf_filesystem_is_disabled_scored() {
-
+    pass
 }
 
 1_1_1_7_ensure_mounting_of_fat_filesystems_is_limited_not_scored() {
-
+    pass
 }
 
 1_1_2_ensure_tmp_is_configured_scored() {
-
+    pass
 }
 
 1_1_3_ensure_nodev_option_set_on_tmp_partition_scored() {
-
+    pass
 }
 
 1_1_4_ensure_nosuid_option_set_on_tmp_partition_scored() {
-
+    pass
 }
 
 1_1_5_ensure_noexec_option_set_on_tmp_partition_scored() {
-
+    pass
 }
 
 1_1_6_ensure_separate_partition_exists_for_var_scored() {
-
+    pass
 }
 
 1_1_7_ensure_separate_partition_exists_for_var_tmp_scored() {
-
+    pass
 }
 
 1_1_8_ensure_nodev_option_set_on_var_tmp_partition_scored() {
-
+    pass
 }
 
 1_1_9_ensure_nosuid_option_set_on_var_tmp_partition_scored() {
-
+    pass
 }
 
 1_1_10_ensure_noexec_option_set_on_var_tmp_partition_scored() {
-
+    pass
 }
 
 1_1_11_ensure_separate_partition_exists_for_var_log_scored() {
-
+    pass
 }
 
 1_1_12_ensure_separate_partition_exists_for_var_log_audit_scored() {
-
+    pass
 }
 
 1_1_13_ensure_separate_partition_exists_for_home_scored() {
-
+    pass
 }
 
 1_1_14_ensure_nodev_option_set_on_home_partition_scored() {
-
+    pass
 }
 
 1_1_15_ensure_nodev_option_set_on_dev_shm_partition_scored() {
-
+    pass
 }
 
 1_1_16_ensure_nosuid_option_set_on_dev_shm_partition_scored(){
-
+    pass
 }
 
 1_1_17_ensure_noexec_option_set_on_dev_shm_partition_scored(){
-
+    pass
 }
 
 1_1_18_ensure_nodev_option_set_on_removable_media_partitions_not_scored() {
-
+    pass
 }
 
 1_1_19_ensure_nosuid_option_set_on_removable_media_partitions_not_scored() {
-
+    pass
 }
 
 1_1_20_ensure_noexec_option_set_on_removable_media_partitions_not_scored() {
-
+    pass
 }
 
 1_1_21_ensure_sticky_bit_is_set_on_all_world_writable_directories_scored() {
-
+    pass
 }
 
 1_1_22_disable_automounting_scored() {
-
+    pass
 }
 
 1_1_23_disable_usb_storage_scored() {
-
+    pass
 }
 
 1_2_configure_software_updates() {
@@ -183,11 +193,11 @@ main() {
 }
 
 1_2_1_ensure_package_manager_repositories_are_configured_not_scored() {
-
+    pass
 }
 
 1_2_2_ensure_gpg_keys_are_configured_not_scored() {
-
+    pass
 }
 
 1_3_configure_sudo() {
@@ -197,15 +207,15 @@ main() {
 }
 
 1_3_1_ensure_sudo_is_installed_scored() {
-
+    apt install sudo -y
 }
 
 1_3_2_ensure_sudo_commands_use_pty_scored() {
-
+    echo "Defaults   use_pty" >> /etc/sudoers
 }
 
 1_3_3_ensure_sudo_log_file_exists_scored() {
-
+    echo "Defaults  logfile="$HOME_DIR/sudo_log.txt"" >> /etc/sudoers
 }
 
 1_4_filesystem_integrity_checking() {
@@ -214,11 +224,11 @@ main() {
 }
 
 1_4_1_ensure_aide_is_installed_scored() {
-
+    pass
 }
 
 1_4_2_ensure_filesystem_integrity_is_regularly_checked_scored() {
-
+    pass
 }
 
 1_5_secure_boot_settings() {
@@ -228,15 +238,15 @@ main() {
 }
 
 1_5_1_ensure_permissions_on_bootloader_config_are_configured_scored() {
-
+    pass
 }
 
 1_5_2_ensure_bootloader_password_is_set_scored() {
-
+    pass
 }
 
 1_5_3_ensure_authentication_required_for_single_user_mode_scored() {
-
+    pass
 }
 
 1_6_additional_process_hardening() {
@@ -247,19 +257,19 @@ main() {
 }
 
 1_6_1_ensure_xd_nx_support_is_enabled_scored() {
-
+    pass
 }
 
 1_6_2_ensure_address_space_layout_randomization_aslr_is_enabled_scored() {
-
+    pass
 }
 
 1_6_3_ensure_prelink_is_disabled_scored() {
-
+    pass
 }
 
 1_6_4_ensure_core_dumps_are_restricted_scored() {
-
+    pass
 }
 
 
@@ -276,19 +286,19 @@ main() {
 }
 
 1_7_1_1_ensure_apparmor_is_installed_scored() {
-
+    pass
 }
 
 1_7_1_2_ensure_apparmor_is_enabled_in_the_bootloader_configuration_scored() {
-
+    pass
 }
 
 1_7_1_3_ensure_all_apparmor_profiles_are_in_enforce_or_complain_mode_scored() {
-
+    pass
 }
 
 1_7_1_4_ensure_all_apparmor_profiles_are_enforcing_scored() {
-
+    pass
 }
 
 1_8_warning_banners() {
@@ -306,35 +316,38 @@ main() {
 }
 
 1_8_1_1_ensure_message_of_the_day_is_configured_properly_scored() {
-
+    rm /etc/motd
 }
 
 1_8_1_2_ensure_local_login_warning_banner_is_configured_properly_scored() {
-
+    echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue
 }
 
 1_8_1_3_ensure_remote_login_warning_banner_is_configured_properly_scored() {
-
+    echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue.net
 }
 
 1_8_1_4_ensure_permissions_on_etc_motd_are_configured_scored() {
-
+    chown root:root /etc/motd
+    chmod u-x,go-wx /etc/motd
 }
 
 1_8_1_5_ensure_permissions_on_etc_issue_are_configured_scored() {
-
+    chown root:root /etc/issue
+    chmod u-x,go-wx /etc/issue
 }
 
 1_8_1_6_ensure_permissions_on_etc_issue_net_are_configured_scored() {
-
+    chown root:root /etc/issue.net
+    chmod u-x,go-wx /etc/issue.net
 }
 
 1_8_2_ensur_gdm_login_banner_is_configured_scored() {
-
+    pass
 }
 
 1_9_ensure_updates_and_patches_and_additional_security_software_are_installed_not_scored() {
-
+    pass
 }
 
 2_services() {
@@ -350,11 +363,11 @@ main() {
 }
 
 2_1_1_ensure_xinetd_is_not_installed_scored() {
-
+    apt purge xinetd -y
 }
 
 2_1_2_ensure_openbsd_inetd_is_not_installed_scored() {
-
+    apt purge openbsd-inetd -y 
 }
 
 2_2_special_purpose_services() {
@@ -365,7 +378,7 @@ main() {
     2_2_5_ensure_dhcp_server_is_not_enabled_scored
     2_2_6_ensure_ldap_server_is_not_enabled_scored
     2_2_7_ensure_nfs_and_rpc_are_not_enabled_scored
-    2_2_8_ensure_dns_Server_is_not_enabled_scored
+    2_2_8_ensure_dns_server_is_not_enabled_scored
     2_2_9_ensure_ftp_server_is_not_enabled_scored
     2_2_10_ensure_http_server_is_not_enabled_scored
     2_2_11_ensure_email_services_are_not_enabled_scored
@@ -387,83 +400,84 @@ main() {
 }
 
 2_2_1_1_ensure_time_synchronization_is_in_use_scored() {
-
+    apt install ntp -y
 }
 
 2_2_1_2_ensure_systemd_timesyncd_is_configured_not_scored() {
-
+    echo "not scored"
 }
 
 2_2_1_3_ensure_chrony_is_configured_scored() {
-
+    echo "we use ntp"
 }
 
 2_2_1_4_ensure_ntp_is_configured_scored() {
-
+    echo "we do this in 2_1_1_1"
 }
 
 2_2_2_ensure_x_window_system_is_not_installed_scored() {
-
+    apt purge xserver-xorg* -y
 }
 
 2_2_3_ensure_avahi_server_is_not_enabled_scored() {
-
+    systemctl --now disable avahi-daemon
 }
 
 2_2_4_ensure_cups_is_not_enabled_scored() {
-
+    systemctl --now disable cups
 }
 
 2_2_5_ensure_dhcp_server_is_not_enabled_scored() {
-
+    echo "we need dhcp server"
 }
 
 2_2_6_ensure_ldap_server_is_not_enabled_scored() {
-
+    systemctl --now disable slapd
 }
 
 2_2_7_ensure_nfs_and_rpc_are_not_enabled_scored() {
-
+    systemctl --now disable nfs-server
+    systemctl --now disable rpcbind
 }
 
-2_2_8_ensure_dns_Server_is_not_enabled_scored() {
-
+2_2_8_ensure_dns_server_is_not_enabled_scored() {
+    systemctl --now disable bind9
 }
 
 2_2_9_ensure_ftp_server_is_not_enabled_scored() {
-
+    systemctl --now disable vsftpd
 }
 
 2_2_10_ensure_http_server_is_not_enabled_scored() {
-
+    echo "we need http server"
 }
 
 2_2_11_ensure_email_services_are_not_enabled_scored() {
-
+    systemctl --now disable dovecot
 }
 
 2_2_12_ensure_samba_is_not_enabled_scored() {
-
+    systemctl --now disable smbd
 }
 
 2_2_13_ensure_http_proxy_server_is_not_enabled_scored() {
-
+    systemctl --now disable squid
 }
 
 2_2_14_ensure_snmp_server_is_not_enabled_scored() {
-
+    systemctl --now disable snmpd
 }
 
 2_2_15_ensure_mail_transfer_agent_is_configured_for_local_only_mode_scored() {
-
+    echo "badan"
 }
 
 2_2_16_ensure_rsync_service_is_not_enabled_scored() {
-
+    systemctl --now disable rsync
 }
 
 2_2_17_ensure_nis_server_is_not_enabled_scored() {
-
+    systemctl --now disable nis
 }
 
 
@@ -477,23 +491,23 @@ main() {
 }
 
 2_3_1_ensure_nis_client_is_not_installed_scored() {
-
+    apt purge nis -y
 }
 
 2_3_2_ensure_rsh_client_is_not_installed_scored() {
-
+    apt purge rsh-client -y
 }
 
 2_3_3_ensure_talk_client_is_not_installed_scored() {
-
+    apt purge talk -y
 }
 
 2_3_4_ensure_telnet_client_is_not_installed_scored() {
-
+    apt purge telnet -y
 }
 
 2_3_5_ensure_ldap_client_is_not_installed_scored() {
-
+    apt purge ldap-utils -y
 }
 
 3_Network_configuration() {
@@ -511,11 +525,12 @@ main() {
 }
 
 3_1_1_disable_ipv6_not_scored() {
-
+    sed -i 's/GRUB_CMDLINE_LINUX="/&ipv6.disable=1 /' /etc/default/grub
+    update-grub
 }
 
 3_1_2_ensure_wireless_interfaces_are_disabled_scored() {
-
+    nmcli radio all off
 }
 
 3_2_network_parameters_host_only() {
@@ -524,11 +539,23 @@ main() {
 }
 
 3_2_1_ensure_packet_redirect_sending_is_disabled_scored() {
-
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.all.send_redirects/d' '{}' \;
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.default.send_redirects/d' '{}' \;
+    sed -i '/net.ipv4.conf.all.send_redirects/d' /etc/sysctl.conf
+    sed -i '/net.ipv4.conf.default.send_redirects/d' /etc/sysctl.conf
+    echo "net.ipv4.conf.all.send_redirects = 0" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.default.send_redirects = 0" >> /etc/sysctl.conf
+    sysctl -w net.ipv4.conf.all.send_redirects=0
+    sysctl -w net.ipv4.conf.default.send_redirects=0
+    sysctl -w net.ipv4.route.flush=1
 }
 
 3_2_2_ensure_ip_forwarding_is_disabled_scored() {
-
+    grep -Els "^\s*net\.ipv4\.ip_forward\s*=\s*1" /etc/sysctl.conf \
+    /etc/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf /run/sysctl.d/*.conf | while \
+    read filename; do sed -ri "s/^\s*(net\.ipv4\.ip_forward\s*)(=)(\s*\S+\b).*$/# \
+    *REMOVED* \1/" $filename; done; sysctl -w net.ipv4.ip_forward=0; sysctl -w \
+    net.ipv4.route.flush=1
 }
 
 3_3_network_parameters_host_and_router() {
@@ -545,42 +572,88 @@ main() {
 }
 
 3_3_1_ensure_source_routed_packets_are_not_accepted_scored() {
-
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.all.accept_source_route/d' '{}' \;
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.default.accept_source_route/d' '{}' \;
+    sed -i '/net.ipv4.conf.all.accept_source_route/d' /etc/sysctl.conf
+    sed -i '/net.ipv4.conf.default.accept_source_route/d' /etc/sysctl.conf
+    echo "net.ipv4.conf.all.accept_source_route = 0" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.default.accept_source_route = 0" >> /etc/sysctl.conf
+    sysctl -w net.ipv4.conf.all.accept_source_route=0
+    sysctl -w net.ipv4.conf.default.accept_source_route=0
+    sysctl -w net.ipv4.route.flush=1
 }
 
 3_3_2_ensure_icmp_redirects_are_not_accepted_scored() {
-
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.all.accept_redirects/d' '{}' \;
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.default.accept_redirects/d' '{}' \;
+    sed -i '/net.ipv4.conf.all.accept_redirects/d' /etc/sysctl.conf
+    sed -i '/net.ipv4.conf.default.accept_redirects/d' /etc/sysctl.conf
+    echo "net.ipv4.conf.all.accept_redirects = 0" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.default.accept_redirects = 0" >> /etc/sysctl.conf
+    sysctl -w net.ipv4.conf.all.accept_redirects=0
+    sysctl -w net.ipv4.conf.default.accept_redirects=0
+    sysctl -w net.ipv4.route.flush=1
 }
 
 3_3_3_ensure_secure_icmp_redirects_are_not_accepted_scored(){
-
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.all.secure_redirects/d' '{}' \;
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.default.secure_redirects/d' '{}' \;
+    sed -i '/net.ipv4.conf.all.secure_redirects/d' /etc/sysctl.conf
+    sed -i '/net.ipv4.conf.default.secure_redirects/d' /etc/sysctl.conf
+    echo "net.ipv4.conf.all.secure_redirects = 0" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.default.secure_redirects = 0" >> /etc/sysctl.conf
+    sysctl -w net.ipv4.conf.all.secure_redirects=0
+    sysctl -w net.ipv4.conf.default.secure_redirects=0
+    sysctl -w net.ipv4.route.flush=1
 }
 
 3_3_4_ensure_suspicious_packets_are_logged_scored() {
-
+    #maybe disk not free for log
+#    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.all.log_martians/d' '{}' \;
+#    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.default.log_martians/d' '{}' \;
+#    sed -i '/net.ipv4.conf.all.log_martians/d' /etc/sysctl.conf
+#    sed -i '/net.ipv4.conf.default.log_martians/d' /etc/sysctl.conf
+#    echo "net.ipv4.conf.all.log_martians = 1" >> /etc/sysctl.conf
+#    echo "net.ipv4.conf.default.log_martians = 1" >> /etc/sysctl.conf
 }
 
 3_3_5_ensure_broadcast_icmp_requests_are_ignored_scored() {
-
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.icmp_echo_ignore_broadcasts/d' '{}' \;
+    sed -i '/net.ipv4.icmp_echo_ignore_broadcasts/d' /etc/sysctl.conf
+    echo "net.ipv4.icmp_echo_ignore_broadcasts = 1" >> /etc/sysctl.conf
+    sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
+    sysctl -w net.ipv4.route.flush=1
 }
-
 3_3_6_ensure_bogus_icmp_responses_are_ignored_scored() {
-
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.icmp_ignore_bogus_error_responses/d' '{}' \;
+    sed -i '/net.ipv4.icmp_ignore_bogus_error_responses/d' /etc/sysctl.conf
+    echo "net.ipv4.icmp_ignore_bogus_error_responses = 1" >> /etc/sysctl.conf
 }
 
 3_3_7_ensure_reverse_path_filtering_is_enabled_scored() {
-
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.all.rp_filter/d' '{}' \;
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.conf.default.rp_filter/d' '{}' \;
+    sed -i '/net.ipv4.conf.all.rp_filter/d' /etc/sysctl.conf
+    sed -i '/net.ipv4.conf.default.rp_filter/d' /etc/sysctl.conf
+    echo "net.ipv4.conf.all.rp_filter = 1" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.default.rp_filter = 1" >> /etc/sysctl.conf
+    sysctl -w net.ipv4.conf.all.rp_filter=1
+    sysctl -w net.ipv4.conf.default.rp_filter=1
+    sysctl -w net.ipv4.route.flush=1
 }
 
 3_3_8_ensure_tcp_syn_cookies_is_enabled_scored() {
-
+    
+    find /etc/sysctl.d/* -type f -exec sed -i '/net.ipv4.tcp_syncookies/d' '{}' \;
+    sed -i '/net.ipv4.tcp_syncookies/d' /etc/sysctl.conf
+    echo "net.ipv4.tcp_syncookies = 1" >> /etc/sysctl.conf
+    sysctl -w net.ipv4.tcp_syncookies=1
+    sysctl -w net.ipv4.route.flush=1
 }
 
 3_3_9_ensure_ipv6_router_advertisements_are_not_accepted_scored() {
-
+    echo "ipv6 is disable"
 }
-
-
 
 3_4_uncommon_network_protocols() {
     3_4_1_ensure_dccp_is_disabled_scored
@@ -590,19 +663,19 @@ main() {
 }
 
 3_4_1_ensure_dccp_is_disabled_scored() {
-
+    echo "install dccp /bin/true" >> /etc/modprobe.d/dccp.conf
 }
 
 3_4_2_ensure_sctp_is_disabled_scored() {
-
+    echo "install sctp /bin/true" >> /etc/modprobe.d/sctp.conf
 }
 
 3_4_3_ensure_rds_is_disabled_scored() {
-
+    echo "install rds /bin/true" >> /etc/modprobe.d/rds.conf
 }
 
 3_4_4_ensure_tips_is_disabled_scored() {
-
+    echo "install tipc /bin/true" >> /etc/modprobe.d/tipc.conf
 }
 
 3_5_firewall_configuration() {
@@ -618,7 +691,7 @@ main() {
 }
 
 3_5_1_1_ensure_a_firewall_package_is_installed_scored() {
-
+    pass
 }
 
 3_5_2_configure_uncomplicatedfirewall() {
@@ -631,23 +704,23 @@ main() {
 }
 
 3_5_2_1_ensure_ufw_service_is_enabled_scored() {
-
+    pass
 }
 
 3_5_2_2_ensure_default_deny_firewall_policy_scored() {
-
+    pass
 }
 
 3_5_2_3_ensure_loopback_traffic_is_configured_scored() {
-
+    pass
 }
 
 3_5_2_4_ensure_outbound_connections_are_configured_not_scored() {
-
+    pass
 }
 
 3_5_2_5_ensure_firewall_rules_exist_for_all_open_ports_scored() {
-
+    pass
 }
 
 3_5_3_configure_nftables() {
@@ -663,35 +736,35 @@ main() {
 }
 
 3_5_3_1_ensure_iptables_are_flushed_not_scored() {
-
+    pass
 }
 
 3_5_3_2_ensure_a_table_exists_scored() {
-
+    pass
 }
 
 3_5_3_3_ensure_base_chains_exist_scored() {
-
+    pass
 }
 
 3_5_3_4_ensure_loopback_traffic_is_configured_scored() {
-
+    pass
 }
 
 3_5_3_5_ensure_outbound_and_established_connections_are_configured_not_scored() {
-
+    pass
 }
 
 3_5_3_6_ensure_default_deny_firewall_policy_scored() {
-
+    pass
 }
 
 3_5_3_7_ensure_nftables_service_is_enabled_scored() {
-
+    pass
 }
 
 3_5_3_8_ensure_nftables_rules_are_permanent_scored() {
-
+    pass
 }
 
 3_5_4_configure_iptables() {
@@ -706,35 +779,35 @@ main() {
 }
 
 3_5_4_1_1_ensure_default_deny_firewall_policy_scored() {
-
+    pass
 }
 
 3_5_4_1_2_ensure_loopback_traffic_is_configured_scored() {
-
+    pass
 }
 
 3_5_4_1_3_ensure_outbound_and_established_connections_are_configured_not_scored() {
-
+    pass
 }
 
 3_5_4_1_4_ensure_firewall_rules_exist_for_all_open_ports_scored() {
-
+    pass
 }
 
 3_5_4_2_1_ensure_IPv6_default_deny_firewall_policy_scored() {
-
+    pass
 }
 
 3_5_4_2_2_ensure_IPv6_loopback_traffic_is_configured_scored() {
-
+    pass
 }
 
 3_5_4_2_3_ensure_IPv6_outbound_and_established_connections_are_configured_not_scored() {
-
+    pass
 }
 
 3_5_4_2_4_ensure_IPv6_firewall_rules_exist_for_all_open_ports_not_scored() {
-
+    pass
 }
 
 4_logging_and_auditing() {
@@ -772,19 +845,19 @@ main() {
 }
 
 4_1_1_1_ensure_auditd_is_installed_scored() {
-
+    pass
 }
 
 4_1_1_2_ensure_auditd_service_is_enabled_scored() {
-
+    pass
 }
 
 4_1_1_3_ensure_auditing_for_processes_that_start_prior_to_auditd_is_enabled_scored() {
-
+    pass
 }
 
 4_1_1_4_ensure_audit_backlog_limit_is_sufficient_scored() {
-
+    pass
 }
 
 4_1_2_configure_data_retention() {
@@ -795,77 +868,76 @@ main() {
 }
 
 4_1_2_1_ensure_audit_log_storage_size_is_configured_scored() {
-
+    pass
 }
 
 4_1_2_2_ensure_audit_logs_are_not_automatically_deleted_scored() {
-
+    pass
 }
 
 4_1_2_3_ensure_system_i_disabled_when_audit_logs_are_full_scored() {
-
+    pass
 }
 
 4_1_3_ensure_events_that_modify_date_and_time_information_are_collected_scored() {
-
+    pass
 }
 
 4_1_4_ensure_events_that_modify_user_group_information_are_collected_scored() {
-
+    pass
 }
 
 4_1_5_ensure_events_that_modify_the_systems_network_environment_are_collected_scored() {
-
+    pass
 }
 
 4_1_6_ensure_events_that_modify_the_systems_mandatory_access_controls_are_collected() {
-
+    pass
 }
 
 4_1_7_ensure_login_and_logout_events_are_collected_scored() {
-
+    pass
 }
 
 4_1_8_ensure_session_initiation_information_is_collected_scored() {
-
+    pass
 }
 
 4_1_9_ensure_discretionary_access_control_permission_modification_events_are_collected_scored() {
-
+    pass
 }
 
 4_1_10_ensure_unsuccessful_unauthorized_file_access_attempts_are_collected() {
-
+    pass
 }
 
 4_1_11_ensure_use_of_privileged_commands_is_collected_scored() {
-
+    pass
 }
 
 4_1_12_ensure_successful_file_system_mounts_are_collected_scored() {
-
+    pass
 }
 
 4_1_13_ensure_file_deletion_events_by_users_are_collected_scored() {
-
+    pass
 }
 
 4_1_14_ensure_changes_to_system_administration_scope_sudoers_is_collected_scored() {
-
+    pass
 }
 
 4_1_15_ensure_system_administrator_actions_sudolog_are_collected_scored() {
-
+    pass
 }
 
 4_1_16_ensure_kernel_module_loading_and_unloading_is_collected_scored() {
-
+    pass
 }
 
 4_1_17_ensure_the_audit_configuration_is_immutable_scored() {
-
+    pass
 }
-
 
 4_2_configure_logging() {
     4_2_1_configure_rsyslog
@@ -886,27 +958,27 @@ main() {
 }
 
 4_2_1_1_ensure_rsyslog_is_installed_scored() {
-
+    pass
 }
 
 4_2_1_2_ensure_rsyslog_service_is_enabled_scored() {
-
+    pass
 }
 
 4_2_1_3_ensure_logging_is_configured_not_scored() {
-
+    pass
 }
 
 4_2_1_4_ensure_rsyslog_default_file_permissions_configured_scored() {
-
+    pass
 }
 
 4_2_1_5_ensure_rsyslog_is_configured_to_send_logs_to_a_remote_log_host_scored() {
-
+    pass
 }
 
 4_2_1_6_ensure_remote_rsyslog_messages_are_only_accepted_on_designated_log_hosts_not_scored() {
-
+    pass
 }
 
 4_2_2_configure_journald() {
@@ -916,27 +988,27 @@ main() {
 }
 
 4_2_2_1_ensure_journald_is_configured_to_send_logs_to_rsyslog_scored() {
-
+    pass
 }
 
 4_2_2_2_ensure_journald_is_configured_to_compress_large_log_files_scored() {
-
+    pass
 }
 
 4_2_2_3_ensure_journald_is_configured_to_write_logfiles_to_persistent_disk_scored() {
-
+    pass
 }
 
 4_2_3_ensure_permissions_on_all_logfiles_are_configured_scored() {
-
+    pass
 }
 
 4_3_ensure_logrotate_is_configured_not_scored() {
-
+    pass
 }
 
 4_4_ensure_logrotate_assigns_appropriate_permissions_scored() {
-
+    pass
 }
 
 5_access_and_authentication_and_authorization() {
@@ -959,35 +1031,48 @@ main() {
 }
 
 5_1_1_ensure_cron_daemon_is_enabled_scored() {
-
+    systemctl --now enable cron
 }
 
 5_1_2_ensure_permissions_on_etc_crontab_are_configured_scored() {
-
+    chown root:root /etc/crontab
+    chmod og-rwx /etc/crontab
 }
 
 5_1_3_ensure_permissions_on_etc_cron_hourly_are_configured_scored() {
-
+    chown root:root /etc/cron.hourly
+    chmod og-rwx /etc/cron.hourly
 }
 
 5_1_4_ensure_permissions_on_etc_cron_daily_are_configured_scored() {
-
+    chown root:root /etc/cron.daily
+    chmod og-rwx /etc/cron.daily
 }
 
 5_1_5_ensure_permissions_on_etc_cron_weekly_are_configured_scored() {
-
+    chown root:root /etc/cron.weekly
+    chmod og-rwx /etc/cron.weekly
 }
 
 5_1_6_ensure_permissions_on_etc_cron_monthly_are_configured_scored() {
-
+    chown root:root /etc/cron.monthly
+    chmod og-rwx /etc/cron.monthly
 }
 
 5_1_7_ensure_permissions_on_etc_cron_d_are_configured_scored() {
-
+    chown root:root /etc/cron.d
+    chmod og-rwx /etc/cron.d
 }
 
 5_1_8_ensure_at_cron_is_restricted_to_authorized_users_scored() {
-
+    rm /etc/cron.deny
+    touch /etc/cron.allow
+    chown root:root /etc/cron.allow
+    chmod g-wx,o-rwx /etc/cron.allow
+    rm /etc/at.deny
+    touch /etc/at.allow
+    chown root:root /etc/at.allow
+    chmod g-wx,o-rwx /etc/at.allow
 }
 
 
@@ -1019,95 +1104,119 @@ main() {
 }
 
 5_2_1_ensure_permissions_on_etc_ssh_sshd_config_are_configured_scored() {
-
+    chown root:root /etc/ssh/sshd_config
+    chmod og-rwx /etc/ssh/sshd_config
 }
 
 5_2_2_ensure_permissions_on_ssh_private_host_key_files_are_configured_scored() {
-
+    find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {} \;
+    find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 0600 {} \;
 }
 
 5_2_3_ensure_permissions_on_ssh_public_host_key_files_are_configured_scored() {
-
+    find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod go-wx {} \;
+    find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \;
 }
 
 5_2_4_ensure_ssh_protocol_is_not_set_to_1_scored() {
-
+    echo "Protocol 2" >> /etc/ssh/sshd_config
 }
 
 5_2_5_ensure_ssh_logLevel_is_appropriate_scored() {
-
+    echo "we dont need this"
 }
 
 5_2_6_ensure_ssh_x11_forwarding_is_disabled_scored() {
-
+    sed -i '/X11Forwarding/d' /etc/ssh/sshd_config
+    echo "X11Forwarding no" >> /etc/ssh/sshd_config
 }
 
 5_2_7_ensure_ssh_maxAuthTries_is_set_to_4_or_less_scored() {
-
+    sed -i '/MaxAuthTries/d' /etc/ssh/sshd_config
+    echo "MaxAuthTries 3" >> /etc/ssh/sshd_config
 }
 
 5_2_8_ensure_ssh_ignoreRhosts_is_enabled_scored() {
-
+    sed -i '/IgnoreRhosts/d' /etc/ssh/sshd_config
+    echo "IgnoreRhosts yes" >> /etc/ssh/sshd_config
 }
 
 5_2_9_ensure_ssh_hostbasedAuthentication_is_disabl() {
-
+    sed -i '/HostbasedAuthentication/d' /etc/ssh/sshd_config
+    echo "HostbasedAuthentication no" >> /etc/ssh/sshd_config
 }
 
 5_2_10_ensure_ssh_root_login_is_disabled_scored() {
-
+    sed -i '/PermitRootLogin/d' /etc/ssh/sshd_config
+    echo "PermitRootLogin no" >> /etc/ssh/sshd_config
 }
 
 5_2_11_ensure_ssh_permitemptypasswords_is_disabled_scored() {
-
+    sed -i '/PermitEmptyPasswords/d' /etc/ssh/sshd_config
+    echo "PermitEmptyPasswords no" >> /etc/ssh/sshd_config
 }
 
 5_2_12_ensure_ssh_permitUserenvironment_is_disabled_scored() {
-
+    sed -i '/PermitUserEnvironment/d' /etc/ssh/sshd_config
+    echo "PermitEmptyPasswords no" >> /etc/ssh/sshd_config
 }
 
 5_2_13_ensure_only_strong_ciphers_are_used_scored() {
-
+    echo "we dont need"
 }
 
 5_2_14_ensure_only_strong_mac_algorithms_are_used_scored() {
-
+    echo "we dont need"
 }
 
 5_2_15_ensure_only_strong_key_exchange_algorithms_are_used_scored() {
-
+    echo "we dont need"
 }
 
 5_2_16_ensure_ssh_idle_timeout_interval_is_configured_scored() {
-
+    sed -i '/ClientAliveInterval/d' /etc/ssh/sshd_config
+    echo "ClientAliveInterval 300" >> /etc/ssh/sshd_config
+    sed -i '/ClientAliveCountMax/d' /etc/ssh/sshd_config
+    echo "ClientAliveCountMax 0" >> /etc/ssh/sshd_config
 }
 
 5_2_17_ensure_ssh_LogingraceTime_is_set_to_one_minute_or_less_scored() {
-
+    sed -i '/LoginGraceTime/d' /etc/ssh/sshd_config
+    echo "LoginGraceTime 60" >> /etc/ssh/sshd_config
 }
 
 5_2_18_ensure_ssh_access_is_limited_scored() {
-
+    sed -i '/AllowUsers/d' /etc/ssh/sshd_config
+    sed -i '/AllowGroups/d' /etc/ssh/sshd_config
+    sed -i '/DenyUsers/d' /etc/ssh/sshd_config
+    sed -i '/DenyGroups/d' /etc/ssh/sshd_config
+    echo "DenyUsers root" >> /etc/ssh/sshd_config
+    echo "DenyGroups root" >> /etc/ssh/sshd_config
+    # allow user ?!
 }
 
 5_2_19_ensure_ssh_warning_banner_is_configured_scored() {
-
+    sed -i '/Banner/d' /etc/ssh/sshd_config
+    echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
 }
 
 5_2_20_ensure_ssh_pam_is_enabled_scored() {
-
+    echo "we dont need"
 }
 
 5_2_21_ensure_ssh_allowTcpforwarding_is_disabled_scored() {
-
+    sed -i '/AllowTcpForwarding/d' /etc/ssh/sshd_config
+    echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config
 }
 
 5_2_22_ensure_ssh_maxStartups_is_configured_scored() {
-
+    sed -i '/maxstartups/d' /etc/ssh/sshd_config
+    echo "maxstartups 10:30:60" >> /etc/ssh/sshd_config
 }
 
 5_2_23_ensure_ssh_maxSessions_is_limited_scored() {
-
+    sed -i '/MaxSessions/d' /etc/ssh/sshd_config
+    echo "MaxSessions 1" >> /etc/ssh/sshd_config
 }
 
 5_3_configure_pam() {
@@ -1118,19 +1227,19 @@ main() {
 }
 
 5_3_1_ensure_password_creation_requirements_are_configured_scored() {
-
+    pass
 }
 
 5_3_2_ensure_lockout_for_failed_password_attempts_is_configured_scored() {
-
+    pass
 }
 
 5_3_3_ensure_password_reuse_is_limited_scored() {
-
+    pass
 }
 
 5_3_4_ensure_password_hashing_algorithm_is_Sha_512_scored() {
-
+    pass
 }
 
 5_4_user_accounts_and_environment() {
@@ -1150,48 +1259,59 @@ main() {
 }
 
 5_4_1_1_ensure_password_expiration_is_365_days_or_less_scored() {
-
+    echo "we dont need"
 }
 
 5_4_1_2_ensure_minimum_days_between_password_changes_is_configuredscored() {
-
+    echo "we dont need"
 }
 
 5_4_1_3_ensure_password_expiration_warning_days_is_7_or_more_scored() {
-
+    echo "we dont need"
 }
 
 5_4_1_4_ensure_inactive_password_lock_is_30_days_or_less_scored() {
-
+    echo "we dont need"
 }
 
 5_4_1_5_ensure_all_users_last_password_change_date_is_in_the_past_scored() {
-
+    echo "we dont need"
 }
 
 
 5_4_2_ensure_system_accounts_are_secured_scored() {
-
+    echo "badan"
 }
 
 5_4_3_ensure_default_group_for_the_root_account_is_gid_0_scored() {
-
+    usermod -g 0 root
 }
 
 5_4_4_ensure_default_user_umask_is_027_or_more_restrictive_scored() {
-
+    sed -i '/umask/d' /etc/bash.bashrc
+    sed -i '/umask/d' /etc/profile
+    sed -i '/umask/d' /etc/profile.d/*.sh
+    echo "umask 027" >> /etc/bash.bashrc
+    echo "umask 027" >> /etc/profile
+    echo "umask 027" >> /etc/profile.d/custom_naad.sh
 }
 
 5_4_5_ensure_default_user_shell_timeout_is_900_seconds_or_less_scored() {
-
+    sed -i '/TMOUT/d' /etc/bash.bashrc
+    sed -i '/TMOUT/d' /etc/profile
+    sed -i '/TMOUT/d' /etc/profile.d/*.sh
+    echo "readonly TMOUT=900 ; export TMOUT" >> /etc/bash.bashrc
+    echo "readonly TMOUT=900 ; export TMOUT" >> /etc/profile
+    echo "readonly TMOUT=900 ; export TMOUT" >> /etc/profile.d/custom_naad.sh
 }
 
 5_5_ensure_root_login_is_restricted_to_system_console_not_scored() {
-
+    pass
 }
 
 5_6_ensure_access_to_the_su_command_is_restricted_scored() {
-
+    groupadd sugroup
+    echo "auth required pam_wheel.so use_uid group=sugroup" >> /etc/pam.d/su
 }
 
 
@@ -1220,62 +1340,71 @@ main() {
 }
 
 6_1_1_audit_system_file_permissions_not_scored() {
-
+    echo "we dont need"
 }
 
 6_1_2_ensure_permissions_on_etc_passwd_are_configured_scored() {
-
+    chown root:root /etc/passwd
+    chmod 644 /etc/passwd
 }
 
 6_1_3_ensure_permissions_on_etc_gshadow_are_configured_scored() {
-
+    chown root:root /etc/gshadow-
+    chown root:shadow /etc/gshadow-
+    chmod o-rwx,g-wx /etc/gshadow-
 }
 
 6_1_4_ensure_permissions_on_etc_shadow_are_configured_scored() {
-
+    chmod o-rwx,g-wx /etc/shadow
+    chown root:shadow /etc/shadow
 }
 
 6_1_5_ensure_permissions_on_etc_group_are_configured_scored() {
-
+    chown root:root /etc/group
+    chmod 644 /etc/group
 }
 
 6_1_6_ensure_permissions_on_etc_passwd_are_configured_scored() {
-
+    chown root:root /etc/passwd-
+    chmod u-x,go-rwx /etc/passwd-
 }
 
 6_1_7_ensure_permissions_on_etc_shadow_are_configured_scored() {
-
+    chown root:shadow /etc/shadow-
+    chmod u-x,go-rwx /etc/shadow-
 }
 
 6_1_8_ensure_permissions_on_etc_group_are_configured_scored() {
-
+    chown root:root /etc/group-
+    chmod u-x,go-rwx /etc/group-
 }
 
 6_1_9_ensure_permissions_on_etc_gshadow_are_configured_scored() {
-
+    chown root:shadow /etc/gshadow
+    chmod o-rwx,g-wx /etc/gshadow
 }
 
 6_1_10_ensure_no_world_writable_files_exist_scored() {
-
+    echo "badan"
 }
 
 6_1_11_ensure_no_unowned_files_or_directories_exist_scored() {
-
+    echo "badan"
 }
 
 6_1_12_ensure_no_ungrouped_files_or_directories_exist_scored() {
-
+    echo "badan"
 }
 
 6_1_13_audit_suid_executables_scored() {
-
+    echo "badan"
 }
 
 6_1_14_audit_sgid_executables_scored() {
-
+    echo "badan"
 }
 
-6_2_user_and_group_settings()_{
+6_2_user_and_group_settings() {
     6_2_1_ensure_password_fields_are_not_empty_scored
     6_2_2_ensure_no_legacy_plus_entries_exist_in_etc_passwd_scored
     6_2_3_ensure_all_users_home_directories_exist_scored
@@ -1300,83 +1429,99 @@ main() {
 }
 
 6_2_1_ensure_password_fields_are_not_empty_scored() {
-
+    pass
 }
 
 6_2_2_ensure_no_legacy_plus_entries_exist_in_etc_passwd_scored() {
-
+    pass
 }
 
 6_2_3_ensure_all_users_home_directories_exist_scored() {
-
+    pass
 }
 
 6_2_4_ensure_no_legacy_plus_entries_exist_in_etc_shadow_scored() {
-
+    pass
 }
 
 6_2_5_ensure_no_legacy_plus_entries_exist_in_etc_group_scored() {
-
+    pass
 }
 
 6_2_6_ensure_root_is_the_only_uid_0_account_scored() {
-
+    pass
 }
 
 6_2_7_ensure_root_path_integrity_scored() {
-
+    pass
 }
 
 6_2_8_ensure_users_home_directories_permissions_are_750_or_more_restrictive_scored() {
-
+    pass
 }
 
 6_2_9_ensure_users_own_their_home_directories_scored() {
-
+    pass
 }
 
 6_2_10_ensure_users_dot_files_are_not_group_or_world_writable_scored() {
-
+    pass
 }
 
 6_2_11_ensure_no_users_have_dot_forward_files_scored() {
-
+    pass
 }
 
 6_2_12_ensure_no_users_have_dot_netrc_files_scored() {
-
+    pass
 }
 
 6_2_13_ensure_users_dot_netrc_Files_are_not_group_or_world_accessible_scored() {
-
+    pass
 }
 
 6_2_14_ensure_no_users_have_dot_rhosts_files_scored() {
-
+    pass
 }
 
 6_2_15_ensure_all_groups_in_etc_passwd_exist_in_etc_group_scored() {
-
+    pass
 }
 
 6_2_16_ensure_no_duplicate_uids_exist_scored() {
-
+    pass
 }
 
 6_2_17_ensure_no_duplicate_gids_exist_scored() {
-
+    pass
 }
 
 6_2_18_ensure_no_duplicate_user_names_exist_scored() {
-
+    cut -d: -f1 /etc/passwd | sort | uniq -d | while read x
+    do echo "${x}" > duplicate_user_name.txt
+    done
+    while read p; do
+        sed -i "/$p/d" /etc/passwd
+    done <duplicate_user_name.txt
+    rm -f duplicate_user_name.txt
 }
 
 6_2_19_ensure_no_duplicate_group_names_exist_scored() {
-
+    cut -d: -f1 /etc/group | sort | uniq -d | while read x
+    do echo "${x}" > duplicate_group_name.txt
+    done
+    while read p; do
+        sed -i "/$p/d" /etc/group
+    done <duplicate_group_name.txt
+    rm -f duplicate_group_name.txt
 }
 
 6_2_20_ensure_shadow_group_is_empty_scored() {
-
+    awk -F: '{ print $1}' /etc/passwd > user.txt
+    while read p; do
+        deluser $p shadow
+    done <user.txt
+    rm -f user.txt
 }
 
 main
