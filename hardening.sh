@@ -1223,7 +1223,7 @@ pre_exec() {
     5_3_1_ensure_password_creation_requirements_are_configured_scored
     5_3_2_ensure_lockout_for_failed_password_attempts_is_configured_scored
     5_3_3_ensure_password_reuse_is_limited_scored
-    5_3_4_ensure_password_hashing_algorithm_is_Sha_512_scored
+    5_3_4_ensure_password_hashing_algorithm_is_sha_512_scored
 }
 
 5_3_1_ensure_password_creation_requirements_are_configured_scored() {
@@ -1238,7 +1238,7 @@ pre_exec() {
     pass
 }
 
-5_3_4_ensure_password_hashing_algorithm_is_Sha_512_scored() {
+5_3_4_ensure_password_hashing_algorithm_is_sha_512_scored() {
     pass
 }
 
@@ -1280,7 +1280,14 @@ pre_exec() {
 
 
 5_4_2_ensure_system_accounts_are_secured_scored() {
-    echo "badan"
+    awk -F: '($1!="root" && $1!="sync" && $1!="shutdown" && $1!="halt" && \
+    $1!~/^\+/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"' && \
+    $7!="'"$(which nologin)"'" && $7!="/bin/false") {print $1}' /etc/passwd | \
+    while read -r user; do usermod -s "$(which nologin)" "$user"; done
+    awk -F: '($1!="root" && $1!~/^\+/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' \
+    /etc/login.defs)"') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | \
+    awk '($2!="L" && $2!="LK") {print $1}' | while read -r user; do usermod -L \
+    "$user"; done
 }
 
 5_4_3_ensure_default_group_for_the_root_account_is_gid_0_scored() {
@@ -1385,23 +1392,50 @@ pre_exec() {
 }
 
 6_1_10_ensure_no_world_writable_files_exist_scored() {
-    echo "badan"
+    df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev \
+    -type f -perm -0002 > world_writable_files_list.txt
+    while read p; do
+        chmod o-w "$p"
+    done <world_writable_files_list.txt
+    rm -f world_writable_files_list.txt
+
 }
 
 6_1_11_ensure_no_unowned_files_or_directories_exist_scored() {
-    echo "badan"
+    df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev \
+    -nouser > unowned_files_or_directories_list.txt
+    while read p; do
+        rm -rf "$p"
+    done <unowned_files_or_directories_list.txt
+    rm -f unowned_files_or_directories_list.txt
 }
 
 6_1_12_ensure_no_ungrouped_files_or_directories_exist_scored() {
-    echo "badan"
+    df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev \
+    -nogroup > ungrouped_files_or_directories_list.txt
+    while read p; do
+        rm -rf "$p"
+    done <ungrouped_files_or_directories_list.txt
+    rm -f ungrouped_files_or_directories_list.txt    
 }
 
 6_1_13_audit_suid_executables_scored() {
-    echo "badan"
+    df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev \
+    -type f -perm -4000 > suid_executables_files_list.txt
+    while read p; do
+        chmod ug-s "$p"
+    done <suid_executables_files_list.txt
+    rm -f suid_executables_files_list.txt
+
 }
 
 6_1_14_audit_sgid_executables_scored() {
-    echo "badan"
+    df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev \
+    -type f -perm -2000 > sgid_executables_files_list.txt
+    while read p; do
+        chmod ug-s "$p"
+    done <sgid_executables_files_list.txt
+    rm -f sgid_executables_files_list.txt
 }
 
 6_2_user_and_group_settings() {
@@ -1429,71 +1463,158 @@ pre_exec() {
 }
 
 6_2_1_ensure_password_fields_are_not_empty_scored() {
-    pass
+    awk -F: '($2 == "" ) { print $1}' /etc/shadow  > users_with_password_fields_empty.txt
+    while read p; do
+        passwd -l $p
+    done <users_with_password_fields_empty.txt
+    rm -f users_with_password_fields_empty.txt
 }
 
 6_2_2_ensure_no_legacy_plus_entries_exist_in_etc_passwd_scored() {
-    pass
+    grep '^\+:' /etc/passwd > legacy_plus_entries_exist_in_etc_passwd_list.txt
+    while read p; do
+        sed -i "/$p/d" /etc/passwd
+    done <legacy_plus_entries_exist_in_etc_passwd_list.txt
+    rm -f legacy_plus_entries_exist_in_etc_passwd_list.txt
 }
 
 6_2_3_ensure_all_users_home_directories_exist_scored() {
-    pass
+    echo "we dont need this"
 }
 
 6_2_4_ensure_no_legacy_plus_entries_exist_in_etc_shadow_scored() {
-    pass
+    grep '^\+:' /etc/shadow > legacy_plus_entries_exist_in_etc_shadow_list.txt
+    while read p; do
+        sed -i "/$p/d" /etc/shadow
+    done <legacy_plus_entries_exist_in_etc_shadow_list.txt
+    rm -f legacy_plus_entries_exist_in_etc_shadow_list.txt
 }
 
 6_2_5_ensure_no_legacy_plus_entries_exist_in_etc_group_scored() {
-    pass
+    grep '^\+:' /etc/group > legacy_plus_entries_exist_in_etc_group_list.txt
+    while read p; do
+        sed -i "/$p/d" /etc/group
+    done <legacy_plus_entries_exist_in_etc_group_list.txt
+    rm -f legacy_plus_entries_exist_in_etc_group_list.txt
 }
 
 6_2_6_ensure_root_is_the_only_uid_0_account_scored() {
-    pass
+    awk -F: '($3 == 0) { print $1 }' /etc/passwd > uid_0_account_list.txt
+    sed -i '/root/d' uid_0_account_list.txt
+    while read p; do
+        deluser $p
+    done <uid_0_account_list.txt
+    rm -f uid_0_account_list.txt
 }
 
 6_2_7_ensure_root_path_integrity_scored() {
-    pass
+    #path ro bayad daghigh bezarim inja
 }
 
 6_2_8_ensure_users_home_directories_permissions_are_750_or_more_restrictive_scored() {
-    pass
+    grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which \
+    nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read user \
+    dir; do
+        chmod o-rwx,g-w $dir
+    done    
 }
 
 6_2_9_ensure_users_own_their_home_directories_scored() {
-    pass
+    grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which \
+    nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read user \
+    dir; do
+        chown -R $user:$user $dir
+    done
 }
 
 6_2_10_ensure_users_dot_files_are_not_group_or_world_writable_scored() {
-    pass
+    grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which \
+    nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read user \
+    dir; do
+        for file in $dir/.[A-Za-z0-9]*; do
+            chmod g-w,o-w $file
+        done
+    done
 }
 
 6_2_11_ensure_no_users_have_dot_forward_files_scored() {
-    pass
+    grep -E -v '^(root|halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != \
+    "'"$(which nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while \
+    read user dir; do
+        echo "$dir" >> dot_forward_files_list.txt
+    done
+    while read p; do
+        rm -f $p/.netrc
+    done <dot_forward_files_list.txt
+    rm -f dot_forward_files_list.txt
 }
 
 6_2_12_ensure_no_users_have_dot_netrc_files_scored() {
-    pass
+    grep -E -v '^(root|halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != \
+    "'"$(which nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while \
+    read user dir; do
+        echo "$dir" >> dot_netrc_Files_list.txt
+    done
+    while read p; do
+        rm -f $p/.netrc
+    done <dot_netrc_Files_list.txt
+    rm -f dot_netrc_Files_list.txt
 }
 
 6_2_13_ensure_users_dot_netrc_Files_are_not_group_or_world_accessible_scored() {
-    pass
+    echo "we remove this file"
 }
 
 6_2_14_ensure_no_users_have_dot_rhosts_files_scored() {
-    pass
+    find /home /root -name .rhosts -print -exec rm{} \;
 }
 
 6_2_15_ensure_all_groups_in_etc_passwd_exist_in_etc_group_scored() {
-    pass
+    #چک شود که دقیقا ستون پنجم اسم گروه باشد
+    # مشکل داره و روی دب باید تست بشه
+    for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
+        grep -q -P "^.*?:[^:]*:$i:" /etc/group
+        if [ $? -ne 0 ]; then
+            echo "$i" > groups_in_etc_passwd_not_exist_in_etc_group.txt
+        fi
+    done
+    while read p; do
+        sed -i "/$p/d" /etc/passwd
+    done <groups_in_etc_passwd_not_exist_in_etc_group.txt
+    rm -f groups_in_etc_passwd_not_exist_in_etc_group.txt
 }
 
 6_2_16_ensure_no_duplicate_uids_exist_scored() {
-    pass
+    cut -f3 -d":" /etc/passwd | sort -n | uniq -c | while read x ; do
+            [ -z "$x" ] && break
+            set - $x
+            if [ $1 -gt 1 ]; then
+                    users=$(awk -F: '($3 == n) { print $1 }' n=$2 /etc/passwd | xargs)
+                    for i in $users
+                    do
+                            echo $i >> duplicate_uids.txt
+                    done
+            fi
+    done
+    while read p; do
+        sed -i "/$p/d" /etc/passwd
+    done <duplicate_uids.txt
+    rm -f duplicate_uids.txt
 }
 
 6_2_17_ensure_no_duplicate_gids_exist_scored() {
-    pass
+    cut -d: -f3 /etc/group | sort | uniq -d | while read x ; do
+	    echo "$x" > duplicate_gids.txt
+    done
+    while read p; do
+	    grep $p /etc/group >> duplicate_gids_names.txt
+    done <duplicate_gids.txt
+    rm -f duplicate_gids.txt
+    while read p; do
+        sed -i "/$p/d" /etc/group
+    done <duplicate_gids_names.txt
+    rm -f duplicate_gids_names.txt
+
 }
 
 6_2_18_ensure_no_duplicate_user_names_exist_scored() {
