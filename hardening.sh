@@ -5,8 +5,8 @@ set -x
 #CiS debian Linux 10 benchmark
 #v1.0.0 - 02-13-202
 
-export HOME_DIR="/home/naad"
-export ROOT_PASSWORD="naad"
+export HOME_DIR="user home dir"
+export ROOT_PASSWORD="user name"
 
 main() {
     pre_exec
