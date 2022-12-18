@@ -6,6 +6,7 @@ set -x
 #v1.0.0 - 02-13-202
 
 export HOME_DIR="/home/naad"
+export ROOT_PASSWORD="naad"
 
 main() {
     pre_exec
@@ -72,31 +73,38 @@ pre_exec() {
 }
 
 1_1_1_1_ensure_mounting_of_freevxfs_filesystems_is_disabled_scored() {
-    pass
+    echo "install freevxfs /bin/true" > /etc/modprobe.d/freevxfs.conf
+    rmmod freevxfs
 }
 
 1_1_1_2_ensure_mounting_of_jffs2_filesystems_is_disabled_scored() {
-    pass
+    echo "install jffs2 /bin/true" > /etc/modprobe.d/jffs2.conf
+    rmmod jffs2
 }
 
 1_1_1_3_ensure_mounting_of_hfs_filesystems_is_disabled_scored() {
-    pass
+    echo "install hfs /bin/true" > /etc/modprobe.d/hfs.conf
+    rmmod hfs
 }
 
 1_1_1_4_ensure_mounting_of_hfsplus_filesystems_is_disabled_scored() {
-    pass
+    echo "install hfsplus /bin/true" > /etc/modprobe.d/hfsplus.conf
+    rmmod hfsplus
 }
 
 1_1_1_5_ensure_mounting_of_squashfs_filesystems_is_disabled_scored() {
-    pass
+    echo "install squashfs /bin/true" > /etc/modprobe.d/squashfs.conf
+    rmmod squashfs
 }
 
 1_1_1_6_ensure_mounting_of_udf_filesystem_is_disabled_scored() {
-    pass
+    echo "install udf /bin/true" > /etc/modprobe.d/udf.conf
+    rmmod udf
 }
 
 1_1_1_7_ensure_mounting_of_fat_filesystems_is_limited_not_scored() {
-    pass
+    echo "install vfat /bin/true" > /etc/modprobe.d/vfat.conf
+    rmmod vfat
 }
 
 1_1_2_ensure_tmp_is_configured_scored() {
@@ -176,15 +184,23 @@ pre_exec() {
 }
 
 1_1_21_ensure_sticky_bit_is_set_on_all_world_writable_directories_scored() {
-    pass
+    df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev \
+    -type d \( -perm -0002 -a ! -perm -1000 \) \
+    2>/dev/null > sticky_bit_is_set_on_all_world_writable_directories_list.txt
+    while read p; do
+        chmod a+t "$p"
+    done <sticky_bit_is_set_on_all_world_writable_directories_list.txt
+    rm -f sticky_bit_is_set_on_all_world_writable_directories_list.txt
 }
 
 1_1_22_disable_automounting_scored() {
-    pass
+    systemctl --now disable autofs
+    apt purge autofs
 }
 
 1_1_23_disable_usb_storage_scored() {
-    pass
+    echo "install usb-storage /bin/true" > /etc/modprobe.d/usb_storage.conf
+    rmmod usb-storage
 }
 
 1_2_configure_software_updates() {
@@ -246,7 +262,7 @@ pre_exec() {
 }
 
 1_5_3_ensure_authentication_required_for_single_user_mode_scored() {
-    pass
+    echo "root:$(echo "$ROOT_PASSWORD")" | chpasswd
 }
 
 1_6_additional_process_hardening() {
@@ -396,7 +412,6 @@ pre_exec() {
     2_2_1_2_ensure_systemd_timesyncd_is_configured_not_scored
     2_2_1_3_ensure_chrony_is_configured_scored
     2_2_1_4_ensure_ntp_is_configured_scored
-
 }
 
 2_2_1_1_ensure_time_synchronization_is_in_use_scored() {
@@ -1227,19 +1242,19 @@ pre_exec() {
 }
 
 5_3_1_ensure_password_creation_requirements_are_configured_scored() {
-    pass
+    echo "we dont need this"
 }
 
 5_3_2_ensure_lockout_for_failed_password_attempts_is_configured_scored() {
-    pass
+    echo "we dont need this"
 }
 
 5_3_3_ensure_password_reuse_is_limited_scored() {
-    pass
+    echo "we dont need this"
 }
 
 5_3_4_ensure_password_hashing_algorithm_is_sha_512_scored() {
-    pass
+    echo "we dont need this"
 }
 
 5_4_user_accounts_and_environment() {
